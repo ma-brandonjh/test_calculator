@@ -55,8 +55,8 @@ export default function Home() {
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-evenly py-32 px-8 bg-white dark:bg-black">
 
-        <div className="flex flex-col bg-white">
-          <text className="text-right">{equation}</text>
+        <div className="flex flex-col w-full h-16 border-8  bg-white">
+          <span className="flex text-right">{equation}</span>
           <input className="text-black text-right" type="text" value={result} defaultValue={0} readOnly/>
         </div>
         <div className="grid grid-cols-5 gap-6 text-center">
@@ -65,7 +65,7 @@ export default function Home() {
               button_number.reverse().map((button: string[]) =>
                 (
                   button.map((number: string) => (
-                    <button className="bg-white text-black w-16 h-16" key={number} onClick={() => button_action(number)}>
+                    <button className="bg-white text-black w-8 h-8" key={number} onClick={() => button_action(number)}>
                       {number}
                     </button>
                   ))
