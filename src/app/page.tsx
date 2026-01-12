@@ -65,7 +65,7 @@ export default function Home() {
               button_number.reverse().map((button: string[]) =>
                 (
                   button.map((number: string) => (
-                    <button className="bg-white text-black w-8 h-8" key={number} onClick={() => button_action(number)}>
+                    <button className="bg-white text-black w-16 h-16" key={number} onClick={() => button_action(number)}>
                       {number}
                     </button>
                   ))
