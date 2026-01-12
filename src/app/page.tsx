@@ -1,16 +1,18 @@
 "use client"
 
+import { Euphoria_Script } from "next/font/google";
 import { useState } from "react";
 
 export default function Home() {
 
   const [result, setResult] = useState("0")
+  const [equation, setEquation] = useState("")
 
   const button_number: string[][] = [["+/-", "0" , "."], ["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
   const button_ops: string[][] = [["C", "DEL"], ["*", "/"], ["+", "-"]]
+  const calculated: boolean = false
 
   const button_action = (button: string): void =>{
-    console.log(button)
     if (button === "+/-"){
       if(Number(result) > 0){
         setResult("-" + result)
@@ -18,12 +20,34 @@ export default function Home() {
         let pos_num = result.replace("-","")
         setResult(pos_num)
       }
+    } else if (button === "C"){
+        setResult("0")
+        setEquation("")
+    } else if (button === "DEL"){
+        let new_result = result.slice(0, -1)
+        if (new_result.length === 0){
+          new_result = "0"
+        }
+        setResult(new_result)
+    } else if (button === "*" || button === "/" || button === "+" || button === "-"){
+        setEquation(equation + result + button)
+        setResult("0")
+    } else if (button === "="){
+        try{
+          let full = equation + result
+          let answer = eval(full)
+
+          setEquation(full)
+          setResult(answer)
+        } catch (error){
+          setResult("Error")
+        }
     } else {
-      if (result === "0"){
-        setResult(button)
-      } else {
-        setResult(result + button)
-      }
+        if (result === "0"){
+          setResult(button)
+        } else {
+          setResult(result + button)
+        }
     }
   }
 
@@ -31,7 +55,8 @@ export default function Home() {
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-evenly py-32 px-8 bg-white dark:bg-black">
 
-        <div className="bg-white">
+        <div className="flex flex-col bg-white">
+          <text className="text-right">{equation}</text>
           <input className="text-black text-right" type="text" value={result} defaultValue={0} readOnly/>
         </div>
         <div className="grid grid-cols-5 gap-6 text-center">
@@ -58,7 +83,7 @@ export default function Home() {
                 ))
               ))
             }
-            <button className=" bg-white text-black h-16 col-span-2 text-center">
+            <button className=" bg-white text-black h-16 col-span-2 text-center" onClick={() => button_action("=")}>
               =
             </button>
           </div>
