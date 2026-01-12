@@ -1,6 +1,5 @@
 "use client"
 
-import { Euphoria_Script } from "next/font/google";
 import { useState } from "react";
 
 export default function Home() {
