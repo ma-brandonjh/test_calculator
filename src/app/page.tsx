@@ -32,21 +32,27 @@ export default function Home() {
         setEquation(equation + result + button)
         setResult("0")
     } else if (button === "="){
-        try{
-          let full = equation + result
-          let answer = eval(full)
+      
+      let full_eq = equation + result
+      calculate(full_eq)
 
-          setEquation(full)
-          setResult(answer)
-        } catch (error){
-          setResult("Error")
-        }
     } else {
         if (result === "0"){
           setResult(button)
         } else {
           setResult(result + button)
         }
+    }
+  }
+
+  const calculate = (eq: string): void => {
+    try{    
+      let answer = eval(eq)
+
+      setEquation(eq)
+      setResult(answer)
+    } catch (error){
+      setResult("Error")
     }
   }
 
